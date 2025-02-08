@@ -7,9 +7,7 @@ mkdir apps
 mkdir ES-DE
 mkdir roms
 cd apps
-ln -s ~/apps/ /workspaces/retrospace/apps/
-ln -s ~/ES-DE/ /workspaces/retrospace/ES-DE/
-ln -s ~/roms/ /workspaces/retrospace/roms/
+ln ~/ /workspaces/codespaces/Home/
 echo installing es-de
 wget https://gitlab.com/es-de/emulationstation-de/-/package_files/164503027/download
 chmod +x ES-DE_x64.AppImage
