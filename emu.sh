@@ -16,6 +16,7 @@ White='\033[0;37m'        # White
 mainscr() {
     echo installing retroarch
     sudo flatpak install com.libretro.RetroArch
+    echo done installing retroarch
     cd /tmp/
     PS3='Browser?: '
     options=("Chrome" "Chromium" "Firefox" "Opera" "Vivaldi")
@@ -44,7 +45,7 @@ mainscr() {
                 sudo apt update
                 sudo apt install vivaldi-stable
             ;;
-            *) echo -e "${Red}./setup.sh: err: $REPLY is not a valid browser option, please try again.";;
+            *) echo -e "${Red}./emu.sh: err: $REPLY is not a valid browser, please try again.";;
         esac
     done
 }
