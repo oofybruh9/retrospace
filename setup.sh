@@ -2,14 +2,15 @@
 Color_Off='\033[0m'       # Text Reset
 Red='\033[0;31m'          # Red
 echo Setting up your retrospace
+sudo apt update
 cd ~
 mkdir apps
 mkdir ES-DE
 mkdir roms
 cd apps
-ln ~/ /workspaces/codespaces/Home/
+ln -S ~ /workspaces/codespaces/Home/
 echo installing es-de
-wget https://gitlab.com/es-de/emulationstation-de/-/package_files/164503027/download
+curl https://gitlab.com/es-de/emulationstation-de/-/package_files/164503027/download -o ES-DE_x64.AppImage
 chmod +x ES-DE_x64.AppImage
 echo done installing ES-DE
 
@@ -19,7 +20,7 @@ echo done installing bauh
 
 echo installing flatpak
 sudo apt install flatpak
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 echo done installing flatpak
 
 echo installing wine

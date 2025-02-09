@@ -54,3 +54,7 @@ and add these lines to the bottom of the Web Browser tab
 ### End! `¯\_(ツ)_/¯`
 
 And there you go! You now have a retro gaming machine, accessible ANYWHERE(if u login with github :D )
+
+## [License](LICENSE)
+
+licensed under GPLv3 `¯\_(ツ)_/¯`
