@@ -26,7 +26,8 @@ White='\033[0;37m'        # White
 
 mainscr() {
     echo installing retroarch
-    sudo flatpak install com.libretro.RetroArch
+    sudo flatpak install org.libretro.RetroArch
+    curl https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Retroarch.svg/2048px-Retroarch.svg.png -o ~/daicons/retroarch.png
     echo done installing retroarch
     cd /tmp/
     PS3='Browser?: '
@@ -35,26 +36,29 @@ mainscr() {
     do
         case $opt in
             "Chrome")
-                wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                sudo dpkg -i ./google-chrome-stable_current_amd64.deb
+                sudo flatpak install flathub com.google.Chrome
+                curl https://raw.githubusercontent.com/alrra/browser-logos/refs/heads/main/src/chrome/chrome.png -o ~/daicons/chrome.png
+                break
             ;;
             "Chromium")
                 sudo flatpak install flathub org.chromium.Chromium
+                curl https://raw.githubusercontent.com/alrra/browser-logos/refs/heads/main/src/chromium/chromium.png -o ~/daicons/chromium.png
+                break
             ;;
             "Firefox")
                 sudo flatpak install flathub org.mozilla.firefox
+                curl https://raw.githubusercontent.com/alrra/browser-logos/refs/heads/main/src/firefox/firefox.png -o ~/daicons/firefox.png
+                break
             ;;
             "Opera")
-                sudo echo "deb http://deb.opera.com/opera/ stable non-free" >> '/etc/apt/sources.list.d/opera.list'
-                sudo wget -O - http://deb.opera.com/archive.key | apt-key add -
-                sudo apt update
-                sudo apt install opera-stable
+                sudo flatpak install flathub com.opera.Opera
+                curl https://raw.githubusercontent.com/alrra/browser-logos/refs/heads/main/src/opera/opera.png -o ~/daicons/opera.png
+                break
             ;;
             "Vivaldi")
-                wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-                echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-                sudo apt update
-                sudo apt install vivaldi-stable
+                sudo flatpak install flathub org.vivaldi.Vivaldi
+                curl https://raw.githubusercontent.com/alrra/browser-logos/refs/heads/main/src/vivaldi/vivaldi.png -o ~/daicons/vivaldi.png
+                break
             ;;
             *) echo -e "${Red}./emu.sh: err: $REPLY is not a valid browser, please try again.";;
         esac
@@ -62,7 +66,7 @@ mainscr() {
 }
 
 
-FLATPAKCHECK="$(flatpak)"
+FLATPAKCHECK="$(flatpak --help)"
 
 if [[ -z $FLATPAKCHECK ]]; then
     echo -e "${Red}oops, looks like flatpak isnt installed! please make sure you've run setup.sh and if you did, check the logs and see why flatpak isnt installed."
