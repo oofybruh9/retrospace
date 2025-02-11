@@ -97,6 +97,39 @@ table Icon
 end
 EOL
 
+echo done installing idesk
+
+echo installing java and rust
+sudo apt install default-jdk
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+echo done installing java and rust
+
+echo installing mpv
+sudo curl --output-dir /etc/apt/trusted.gpg.d -O https://apt.fruit.je/fruit.gpg
+sudo touch /etc/apt/sources.list.d/fruit.list
+cat >/etc/apt/sources.list.d/fruit.list <<EOL
+deb http://apt.fruit.je/ubuntu noble mpv
+EOL
+sudo apt update
+sudo apt install mpv
+echo done installing mpv
+
+echo installing audio support
+sudo echo "load-module module-simple-protocol-tcp listen=127.0.0.1 format=s16le channels=2 rate=48000 record=true playback=false" > /etc/pulse/default.pa.d/simple-protocol.pa
+echo 'pulseaudio -k &' >> ~/.fluxbox/init
+echo 'pulseaudio --start &' >> ~/.fluxbox/init
+wget https://raw.githubusercontent.com/me-asri/noVNC-audio-plugin/refs/heads/main/audio-plugin.js
+wget https://raw.githubusercontent.com/me-asri/noVNC-audio-plugin/refs/heads/main/audio-proxy.sh
+apt install socat gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+sudo touch /etc/websockify/token.cfg
+sudo cat > /etc/websockify/token.cfg << EOF
+	audio: 127.0.0.1:5711
+EOF
+echo "${Yellow}please edit /usr/local/novnc/noVNC-1.2.0/utils/launch.sh on line 165 and replace this:"
+echo '${WEBSOCKIFY} ${SSLONLY} --web ${WEB} ${CERT:+--cert ${CERT}} ${KEY:+--key ${KEY}} ${PORT} ${VNC_DEST} ${RECORD_ARG} &'
+echo "${Yellow}for this:"
+echo '${WEBSOCKIFY} ${SSLONLY} --web ${WEB} ${CERT:+--cert ${CERT}} ${KEY:+--key ${KEY}} ${PORT} ${VNC_DEST} ${RECORD_ARG} --token-plugin=TokenFile --token-source=/etc/websockify/token.cfg &'
+echo "${Yellow}cuz this script cant do that."
 
 echo "done! please stop the codespace and start it again and then run emu.sh for the rest of the setup!"
 echo -e "${Yellow}NOTE: you NEED to extract AppImages by running ./app.appimage --extract-appimage because fuse doesn't work."
