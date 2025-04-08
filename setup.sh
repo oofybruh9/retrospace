@@ -11,12 +11,12 @@ mkdir roms
 mkdir ~/daicons/
 cd apps
 ln -S ~ /workspaces/codespaces/Home/
-echo installing es-de
-curl https://gitlab.com/es-de/emulationstation-de/-/package_files/164503027/download -o ES-DE_x64.AppImage
-./ES-DE_x64.AppImage --extract-appimage
-mv squashfs-root es-de
+echo installing emulationstation
+git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
+cd RetroPie-Setup
+sudo ./retropie_setup.sh
 curl https://impro.usercontent.one/appid/oneComWsb/domain/es-de.org/media/es-de.org/onewebmedia/ES-DE_logo.png -o ~/daicons/es-de.png
-echo done installing ES-DE
+echo done installing emulationstation
 
 echo "installing bauh (app manager)"
 pip install bauh
@@ -118,18 +118,19 @@ echo installing audio support
 sudo echo "load-module module-simple-protocol-tcp listen=127.0.0.1 format=s16le channels=2 rate=48000 record=true playback=false" > /etc/pulse/default.pa.d/simple-protocol.pa
 echo 'pulseaudio -k &' >> ~/.fluxbox/init
 echo 'pulseaudio --start &' >> ~/.fluxbox/init
-wget https://raw.githubusercontent.com/me-asri/noVNC-audio-plugin/refs/heads/main/audio-plugin.js
+curl https://raw.githubusercontent.com/me-asri/noVNC-audio-plugin/refs/heads/main/audio-plugin.js -o /usr/local/novnc/noVNC-1.2.0/audio-plugin.js
 wget https://raw.githubusercontent.com/me-asri/noVNC-audio-plugin/refs/heads/main/audio-proxy.sh
-apt install socat gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+sudo apt install socat gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+sudo mkdir /etc/websockify/
 sudo touch /etc/websockify/token.cfg
 sudo cat > /etc/websockify/token.cfg << EOF
 	audio: 127.0.0.1:5711
 EOF
-echo "${Yellow}please edit /usr/local/novnc/noVNC-1.2.0/utils/launch.sh on line 165 and replace this:"
+echo -e "${Yellow}please edit /usr/local/novnc/noVNC-1.2.0/utils/launch.sh on line 165 and replace this:"
 echo '${WEBSOCKIFY} ${SSLONLY} --web ${WEB} ${CERT:+--cert ${CERT}} ${KEY:+--key ${KEY}} ${PORT} ${VNC_DEST} ${RECORD_ARG} &'
-echo "${Yellow}for this:"
+echo -e "${Yellow}for this:"
 echo '${WEBSOCKIFY} ${SSLONLY} --web ${WEB} ${CERT:+--cert ${CERT}} ${KEY:+--key ${KEY}} ${PORT} ${VNC_DEST} ${RECORD_ARG} --token-plugin=TokenFile --token-source=/etc/websockify/token.cfg &'
-echo "${Yellow}cuz this script cant do that."
+echo -e "${Yellow}cuz this script cant do that."
 
-echo "done! please stop the codespace and start it again and then run emu.sh for the rest of the setup!"
+echo -e "${Color_Off}done! please stop the codespace and start it again and then run emu.sh for the rest of the setup!"
 echo -e "${Yellow}NOTE: you NEED to extract AppImages by running ./app.appimage --extract-appimage because fuse doesn't work."

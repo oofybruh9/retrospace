@@ -16,10 +16,6 @@ Fork the repo so u pay for the codespace cuz i cant afford all that usage, then 
 
 Just run `./setup.sh` in the terminal:  
 ![setup.sh](./images/start.sh.png)  
-Then close the tab and go to [GitHub Codespaces](https://github.com/codespaces) and click on the three dots and then click 'Stop Codespace'.  
-Then wait till the page reloads and then reenter the codespace to let the changes take effect.  
-Then run on the terminal `./emu.sh`  
-![emu.sh](./images/emu.sh.png)  
 
 ### Entering the Desktop
 
@@ -35,21 +31,12 @@ Delete the Web Browser line
 and add these lines to the bottom of the Web Browser tab  
 
 ```text
-    [exec] (Your Browser name) { browser-exe } <>
-    [exec] (ES-DE) { ~/apps/ES-DE_x64.AppImage } <>
-    [exec] (RetroArch) { flatpak run org.libretro.RetroArch }
+    [exec] (midori) { midori } <>
+    [exec] (ES-DE) { emulationstation } <>
+    [exec] (RetroArch) { retroarch }
     [exec] (Wine GUI) { winegui } <>
-    [exec] (Bauh (App Store)) { bauh } <>
+    [exec] (Bauh) { bauh } <>
 ```
-
-> [!IMPORTANT]
-> Replace `Your Browser name` with your browser choice when running `emu.sh` and `browser-exe` with your browser's executable shown below:  
->
-> Chrome: `google-chrome`  
-> Firefox: `flatpak run org.mozilla.firefox`  
-> Chromium: `flatpak run org.chromium.Chromium`  
-> Opera: `opera`  
-> Vivaldi: `vivaldi`  
 
 ### End! `¯\_(ツ)_/¯`
 
